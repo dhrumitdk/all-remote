@@ -1,0 +1,128 @@
+.left-menu {
+  width: 20%;
+  height: 100vh;
+  background-color: #000b10;
+  position: fixed;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.left-menu-h1 {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-family: Pacifico;
+  letter-spacing: 1px;
+  color: #f1f1f1;
+}
+
+.ul-menu {
+  list-style-type: none;
+  margin-top: 80px;
+}
+
+.active-ul-menu-li {
+  padding: 10px;
+  background-color: #fff;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.ul-menu-li {
+  padding: 20px;
+  color: #f1f1f1;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.active-menu-link {
+  color: #343434;
+}
+
+.menu-links {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  color: #f1f1f1;
+}
+
+.right-portion {
+  margin-top: 60px;
+  margin-left: 380px;
+}
+
+.create-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 110px;
+}
+
+.create-form-btn {
+  height: 35px;
+  width: 150px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.next-input-field {
+  margin-top: 10px;
+}
+
+.create-task {
+  margin-top: 40px;
+}
+
+.task-div {
+  display: flex;
+  margin-left: 360px;
+  width: 730px;
+  flex-flow: wrap;
+}
+
+.task-card {
+  width: 200px;
+  height: 150px;
+  margin-top: 60px;
+  margin-left: 30px;
+  padding-left: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0.2px 0.1px 3px 0.2px #dbdbdb;
+}
+
+.checkIcon {
+  color: #42ff0e;
+  width: 18px;
+  margin-left: 80px;
+  cursor: pointer;
+}
+
+.lowPriority {
+  width: 55px;
+  padding-left: 2px;
+  font-size: 12px;
+  text-align: center;
+  background-color: #42ff0e;
+  color: white;
+  border-radius: 5px;
+}
+
+.mediumPriority {
+  width: 55px;
+  padding-left: 2px;
+  font-size: 12px;
+  text-align: center;
+  background-color: #ffa200;
+  color: white;
+  border-radius: 5px;
+}
+
+.highPriority {
+  width: 55px;
+  padding-left: 2px;
+  font-size: 12px;
+  text-align: center;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
