@@ -41,7 +41,7 @@ function Signup() {
       axios
         .post("http://localhost:4000/user-signup-endpoint", values)
         .then((res) => {
-          history.push("/test");
+          history.push("/tasks");
         });
     },
   });

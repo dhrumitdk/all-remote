@@ -58,7 +58,6 @@ function Tasks() {
     }
 
     fetchData();
-    console.log(taskData);
   }, []); // gets executed only once
 
   const priorityOptions = [
@@ -111,7 +110,7 @@ function Tasks() {
         {/* right side menu div */}
         <div className="right-portion">
           <div className="top">
-            <h2 style={{ marginLeft: "8px" }}> Tasks </h2>
+            <h2 style={{ marginLeft: "8px", color: "#343434" }}> Tasks </h2>
 
             {/* modal for create task form */}
             <Modal
@@ -234,33 +233,78 @@ function Tasks() {
         </div>
       </div>
 
-      {/* card that displays tasks */}
-      <div className="task-div">
-        {taskData.map(({ taskName, assignee, dueDate, priority }) => (
-          <div className="task-card">
-            <div style={{ display: "flex" }}>
-              <b> {taskName} </b>
-              <Check
-                className="checkIcon"
-                onClick={() => window.location.reload()}
-              />
-            </div>
-            <div style={{ marginTop: "15px" }}>
-              {assignee} <br />
-              {dueDate}
-            </div>
-            <div style={{ marginTop: "30px" }}>
-              {/* conditional rendering based on priority */}
-              {priority === "Low" ? (
-                <div className="lowPriority"> {priority} </div>
-              ) : priority === "Medium" ? (
-                <div className="mediumPriority"> {priority} </div>
-              ) : (
-                <div className="highPriority"> {priority} </div>
-              )}
-            </div>
+      <div style={{ paddingBottom: "30px" }}>
+        {/* ongoing tasks */}
+        <div className="ongoing-task-div">
+          <div className="ongoing-task">
+            <h4> Ongoing tasks </h4>
           </div>
-        ))}
+
+          {/* card that displays tasks */}
+          <div className="task-div">
+            {taskData.map(({ taskName, assignee, dueDate, priority }) => (
+              <div className="task-card">
+                <div style={{ display: "flex" }}>
+                  <b> {taskName} </b>
+                  <Check
+                    className="checkIcon"
+                    onClick={() => window.location.reload()}
+                  />
+                </div>
+                <div style={{ marginTop: "15px" }}>
+                  {assignee} <br />
+                  {dueDate}
+                </div>
+                <div style={{ marginTop: "30px" }}>
+                  {/* conditional rendering based on priority */}
+                  {priority === "Low" ? (
+                    <div className="lowPriority"> {priority} </div>
+                  ) : priority === "Medium" ? (
+                    <div className="mediumPriority"> {priority} </div>
+                  ) : (
+                    <div className="highPriority"> {priority} </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* completed tasks */}
+        <div className="completed-task-div">
+          <div className="completed-task">
+            <h4> Completed tasks </h4>
+          </div>
+
+          {/* card that displays tasks */}
+          <div className="task-div">
+            {taskData.map(({ taskName, assignee, dueDate, priority }) => (
+              <div className="task-card">
+                <div style={{ display: "flex" }}>
+                  <b> {taskName} </b>
+                  <Check
+                    className="checkIcon"
+                    onClick={() => window.location.reload()}
+                  />
+                </div>
+                <div style={{ marginTop: "15px" }}>
+                  {assignee} <br />
+                  {dueDate}
+                </div>
+                <div style={{ marginTop: "30px" }}>
+                  {/* conditional rendering based on priority */}
+                  {priority === "Low" ? (
+                    <div className="lowPriority"> {priority} </div>
+                  ) : priority === "Medium" ? (
+                    <div className="mediumPriority"> {priority} </div>
+                  ) : (
+                    <div className="highPriority"> {priority} </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

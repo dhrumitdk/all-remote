@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import Data from "./Data.js";
 import userData from "./models/userModel.js";
-import taskData from './models/taskModel.js';
+import taskData from "./models/taskModel.js";
 
 // app config
 const app = express();

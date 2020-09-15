@@ -1,7 +1,7 @@
 .left-menu {
   width: 20%;
   height: 100vh;
-  background-color: #000b10;
+  background-color: #f0f0f0;
   position: fixed;
   font-family: "Source Sans Pro", sans-serif;
 }
@@ -10,8 +10,9 @@
   padding-top: 20px;
   padding-left: 20px;
   font-family: Pacifico;
+  font-size: 20px;
   letter-spacing: 1px;
-  color: #f1f1f1;
+  color: #343434;
 }
 
 .ul-menu {
@@ -39,8 +40,8 @@
 
 .menu-links {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 16px;
-  color: #f1f1f1;
+  font-size: 14px;
+  color: #343434;
 }
 
 .right-portion {
@@ -70,9 +71,41 @@
   margin-top: 40px;
 }
 
+.ongoing-task-div {
+  width: 750px;
+  margin-top: 40px;
+  margin-left: 350px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0.2px 0.1px 3px 0.2px #dbdbdb;
+}
+
+.completed-task-div {
+  width: 750px;
+  margin-top: 40px;
+  margin-left: 350px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0.2px 0.1px 3px 0.2px #dbdbdb;
+}
+
+.ongoing-task {
+  margin-left: 50px;
+  color: #343434;
+}
+
+.completed-task {
+  margin-left: 50px;
+  color: #343434;
+}
+
 .task-div {
   display: flex;
-  margin-left: 360px;
+  margin-left: 20px;
   width: 730px;
   flex-flow: wrap;
 }
@@ -80,18 +113,18 @@
 .task-card {
   width: 200px;
   height: 150px;
-  margin-top: 60px;
+  margin-top: 20px;
   margin-left: 30px;
   padding-left: 20px;
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #fff;
   box-shadow: 0.2px 0.1px 3px 0.2px #dbdbdb;
 }
 
 .checkIcon {
-  color: #42ff0e;
+  color: #343434;
   width: 18px;
   margin-left: 80px;
   cursor: pointer;
@@ -102,7 +135,7 @@
   padding-left: 2px;
   font-size: 12px;
   text-align: center;
-  background-color: #42ff0e;
+  background-color: #4eff1d;
   color: white;
   border-radius: 5px;
 }
