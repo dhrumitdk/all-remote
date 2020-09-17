@@ -25,8 +25,8 @@ function Schedules() {
             </Link>
           </li>
           <li className="ul-menu-li">
-            <Link to="/blog" className="menu-links">
-              Blog
+            <Link to="/wall" className="menu-links">
+              Wall
             </Link>
           </li>
         </ul>

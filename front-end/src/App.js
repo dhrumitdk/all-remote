@@ -6,8 +6,11 @@ import SignUp from "./components/Signup";
 import Test from "./components/Test";
 import Schedules from "./components/Schedules";
 import Teams from "./components/Teams";
-import Blog from "./components/Blog";
+import Wall from "./components/Wall";
 import Tasks from "./components/Tasks";
+import FindOne from "./components/FindOne";
+import SayHello from "./components/SayHello";
+import CreatePosts from "./components/CreatePosts";
 
 function App() {
   return (
@@ -19,7 +22,10 @@ function App() {
         <Route path="/tasks" exact component={Tasks} />
         <Route path="/schedules" exact component={Schedules} />
         <Route path="/teams" exact component={Teams} />
-        <Route path="/blog" exact component={Blog} />
+        <Route path="/wall" exact component={Wall} />
+        <Route path="/posts/create" exact component={CreatePosts} />
+        <Route path="/hello" exact component={SayHello} />
+        <Route path="/find" exact component={FindOne} />
       </Switch>
     </BrowserRouter>
   );

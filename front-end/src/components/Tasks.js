@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Axios from "./Axios";
 import "../styles/Tasks.css";
 import { Link } from "react-router-dom";
@@ -73,7 +72,7 @@ function Tasks() {
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      axios.post("http://localhost:4000/task-endpoint", values).then((res) => {
+      Axios.post("/task-endpoint", values).then((res) => {
         window.location.reload();
       });
     },
@@ -100,8 +99,8 @@ function Tasks() {
               </Link>
             </li>
             <li className="ul-menu-li">
-              <Link to="/blog" className="menu-links">
-                Blog
+              <Link to="/wall" className="menu-links">
+                Wall
               </Link>
             </li>
           </ul>

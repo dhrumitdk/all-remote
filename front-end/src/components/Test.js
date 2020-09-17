@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "./Axios";
+import Axios from "./Axios";
 
 function Test() {
   const [userData, setuserData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("/data-post-endpoint");
+      const response = await Axios.get("/data-post-endpoint");
       setuserData(response.data);
 
       return response;
