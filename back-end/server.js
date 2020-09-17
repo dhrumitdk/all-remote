@@ -82,7 +82,7 @@ app.post("/task-endpoint", (req, res) => {
   });
 });
 
-// task get and post endpoints
+// wall posts get and post endpoints
 app.get("/wall-endpoint", (req, res) => {
   wallData.find((err, data) => {
     if (err) {
@@ -105,6 +105,7 @@ app.post("/wall-endpoint", (req, res) => {
   });
 });
 
+// for getting document based on id provided from front end
 app.get("/posts/:id", (req, res) => {
   const id = req.params.id;
   wallData.findById({ _id: id }, (err, data) => {
