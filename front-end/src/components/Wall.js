@@ -2,7 +2,7 @@ import Axios from "./Axios";
 import "../styles/Wall.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Header, Modal, Input, TextArea } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 
 // functional component start here
 function Wall() {
