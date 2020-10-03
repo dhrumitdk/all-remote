@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "./Axios";
 import "../styles/Tasks.css";
 import { Link } from "react-router-dom";
-import { Header, Modal, Input, Dropdown } from "semantic-ui-react";
+import { Header, Modal, Input } from "semantic-ui-react";
 import { Check, Plus } from "react-feather";
 import { useFormik } from "formik";
 

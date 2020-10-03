@@ -11,6 +11,8 @@ import Tasks from "./components/Tasks";
 import FindOne from "./components/FindOne";
 import SayHello from "./components/SayHello";
 import CreatePosts from "./components/CreatePosts";
+import AdminLogin from "./components/Admin/AdminLogin";
+import Dashboard from "./components/Admin/Dashboard";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="/posts/create" exact component={CreatePosts} />
         <Route path="/hello" exact component={SayHello} />
         <Route path="/find" exact component={FindOne} />
+        <Route path="/admin/login" exact component={AdminLogin} />
+        <Route path="/admin/dashboard" exact component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );

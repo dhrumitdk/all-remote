@@ -1,0 +1,6 @@
+.schedule-div {
+  display: flex;
+  margin-left: 20px;
+  width: 730px;
+  flex-flow: wrap;
+}
