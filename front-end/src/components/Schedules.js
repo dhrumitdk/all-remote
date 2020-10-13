@@ -9,9 +9,6 @@ const initialValues = {
   title: "",
   date: "",
   url: "",
-  dueDate: "",
-  priority: "",
-  status: "",
 };
 
 // validation function for formik
@@ -29,13 +26,6 @@ const validate = (values) => {
     errors.url = "This field cannot be empty";
   }
 
-  if (!values.dueDate) {
-    errors.dueDate = "This field cannot be empty";
-  }
-
-  if (!values.priority) {
-    errors.priority = "This field cannot be empty";
-  }
   return errors;
 };
 
@@ -127,8 +117,7 @@ function Schedules() {
                   <label className="label"> Date* </label> <br />
                   <Input
                     name="date"
-                    type="text"
-                    placeholder="Example: abc@example.com"
+                    type="date"
                     className="input"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -143,7 +132,7 @@ function Schedules() {
                   <label className="label"> URL (Optional) </label> <br />
                   <Input
                     name="url"
-                    type="date"
+                    type="text"
                     className="input"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}

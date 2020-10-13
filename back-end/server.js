@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
 import Data from "./Data.js";
 import userData from "./models/userModel.js";
 import taskData from "./models/taskModel.js";
@@ -78,6 +79,28 @@ app.post("/task-endpoint", (req, res) => {
       res.status(500).send(err);
     } else {
       res.status(201).send(data);
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "noreply.allremote@gmail.com",
+          pass: "allremote@123",
+        },
+      });
+
+      const mailOptions = {
+        from: "noreply.allremote@gmail.com",
+        to: data.assignee,
+        subject: "New Task Assigned!",
+        html: `<img src = 'https://i.ibb.co/wR4CkQ6/logo.png'> <br /><br /> <b> Task Name: </b> ${data.taskName}. <br /> <b> Priority: </b> ${data.priority}. <br /> <b> Due Date:  </b> ${data.dueDate}. <br /><br /> Have a good day &#128512;`,
+      };
+
+      transporter.sendMail(mailOptions, (err) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Email sent!");
+      });
     }
   });
 });

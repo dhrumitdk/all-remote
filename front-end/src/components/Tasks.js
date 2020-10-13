@@ -207,7 +207,7 @@ function Tasks() {
                     <Input
                       name="priority"
                       type="text"
-                      placeholder="Optional"
+                      placeholder="Example: High"
                       className="input"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
