@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import Axios from "./Axios";
 import "../styles/SignUp.css";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
@@ -38,11 +38,9 @@ function Signup() {
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      axios
-        .post("http://localhost:4000/user-signup-endpoint", values)
-        .then((res) => {
-          history.push("/tasks");
-        });
+      Axios.post("/user-signup-endpoint", values).then((res) => {
+        history.push("/tasks");
+      });
     },
   });
 

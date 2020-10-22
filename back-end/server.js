@@ -8,7 +8,7 @@ import wallData from "./models/wallModel.js";
 
 // app config
 const app = express();
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 // middlewares
 app.use(express.json());
@@ -19,7 +19,8 @@ app.use((req, res, next) => {
 });
 
 // DB config
-const connectionURL = "mongodb://localhost:27017/all-remote";
+const connectionURL =
+  "mongodb+srv://dhrumitdk:dhrumit99@cluster0.ve3ls.mongodb.net/all-remote?retryWrites=true&w=majority";
 mongoose.connect(connectionURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -28,9 +29,7 @@ mongoose.connect(connectionURL, {
 
 // api endpoints
 app.get("/", (req, res) => {
-  const testData = "testData";
   res.send("Hello Express server is up and running!");
-  console.log(testData);
 });
 
 app.get("/data-endpoint", (req, res) => {
@@ -151,6 +150,6 @@ app.get("/find-one-endpoint", (req, res) => {
 });
 
 // listen
-app.listen(PORT, () => {
-  console.log(`App listening on port: ${PORT}`);
+app.listen(port, () => {
+  console.log("App has started!");
 });

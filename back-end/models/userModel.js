@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    projectName: String,
-    password: String
+  projectName: String,
+  password: String,
 });
 
-export default mongoose.model('users', userSchema);
+export default mongoose.model("users", userSchema);
