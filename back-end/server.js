@@ -152,5 +152,5 @@ app.get("/find-one-endpoint", (req, res) => {
 
 // listen
 app.listen(PORT, () => {
-  console.log(`App listening on port: ${port}`);
+  console.log(`App listening on port: ${PORT}`);
 });
