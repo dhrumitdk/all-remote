@@ -8,7 +8,7 @@ import wallData from "./models/wallModel.js";
 
 // app config
 const app = express();
-const port = 4000;
+const PORT = process.env.PORT || 4000;
 
 // middlewares
 app.use(express.json());
@@ -151,6 +151,6 @@ app.get("/find-one-endpoint", (req, res) => {
 });
 
 // listen
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log(`App listening on port: ${port}`);
 });
