@@ -60,7 +60,7 @@ app.post("/user-signup-endpoint", (req, res) => {
 });
 
 // task get and post endpoints
-app.get("/task-get-endpoint", (req, res) => {
+app.get("/task-endpoint", (req, res) => {
   taskData.find((err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -70,7 +70,7 @@ app.get("/task-get-endpoint", (req, res) => {
   });
 });
 
-app.post("/task-post-endpoint", (req, res) => {
+app.post("/task-endpoint", (req, res) => {
   const dbTasks = req.body;
 
   taskData.create(dbTasks, (err, data) => {

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { Header, Modal, Input } from "semantic-ui-react";
 import { Check, Plus } from "react-feather";
 import { useFormik } from "formik";
+import TaskCard from "./TaskCard";
+import CompletedTask from "./CompletedTask";
 
 // setting initial values for formik form
 const initialValues = {
@@ -44,20 +46,7 @@ const validate = (values) => {
 // functional component start here
 function Tasks() {
   // creating state for task data
-  const [taskData, setTaskData] = useState([]);
   const [open, setOpen] = useState(false);
-
-  // useEffect hook for fetching data from the database
-  useEffect(() => {
-    async function fetchData() {
-      const response = await Axios.get("/task-get-endpoint");
-      setTaskData(response.data);
-
-      return response;
-    }
-
-    fetchData();
-  }, []); // gets executed only once
 
   const priorityOptions = [
     { key: 1, text: "Low", value: 1 },
@@ -72,7 +61,7 @@ function Tasks() {
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      Axios.post("/task-post-endpoint", values).then((res) => {
+      Axios.post("/task-endpoint", values).then((res) => {
         window.location.reload();
       });
     },
@@ -232,78 +221,28 @@ function Tasks() {
         </div>
       </div>
 
-      <div style={{ paddingBottom: "30px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "left",
+          paddingBottom: "30px",
+        }}
+      >
         {/* ongoing tasks */}
-        <div className="ongoing-task-div">
-          <div className="ongoing-task">
-            <h4> Ongoing tasks </h4>
-          </div>
+        <h5 style={{ marginTop: "50px", marginLeft: "390px" }}>
+          {" "}
+          Ongoing Tasks{" "}
+        </h5>
 
-          {/* card that displays tasks */}
-          <div className="task-div">
-            {taskData.map(({ taskName, assignee, dueDate, priority }) => (
-              <div className="task-card">
-                <div style={{ display: "flex" }}>
-                  <b> {taskName} </b>
-                  <Check
-                    className="checkIcon"
-                    onClick={() => window.location.reload()}
-                  />
-                </div>
-                <div style={{ marginTop: "15px" }}>
-                  {assignee} <br />
-                  {dueDate}
-                </div>
-                <div style={{ marginTop: "30px" }}>
-                  {/* conditional rendering based on priority */}
-                  {priority === "Low" ? (
-                    <div className="lowPriority"> {priority} </div>
-                  ) : priority === "Medium" ? (
-                    <div className="mediumPriority"> {priority} </div>
-                  ) : (
-                    <div className="highPriority"> {priority} </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* completed tasks */}
-        <div className="completed-task-div">
-          <div className="completed-task">
-            <h4> Completed tasks </h4>
-          </div>
-
-          {/* card that displays tasks */}
-          <div className="task-div">
-            {taskData.map(({ taskName, assignee, dueDate, priority }) => (
-              <div className="task-card">
-                <div style={{ display: "flex" }}>
-                  <b> {taskName} </b>
-                  <Check
-                    className="checkIcon"
-                    onClick={() => window.location.reload()}
-                  />
-                </div>
-                <div style={{ marginTop: "15px" }}>
-                  {assignee} <br />
-                  {dueDate}
-                </div>
-                <div style={{ marginTop: "30px" }}>
-                  {/* conditional rendering based on priority */}
-                  {priority === "Low" ? (
-                    <div className="lowPriority"> {priority} </div>
-                  ) : priority === "Medium" ? (
-                    <div className="mediumPriority"> {priority} </div>
-                  ) : (
-                    <div className="highPriority"> {priority} </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <h5 style={{ marginTop: "50px", marginLeft: "420px" }}>
+          {" "}
+          Completed Tasks{" "}
+        </h5>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        {/* card that displays tasks */}
+        <TaskCard />
+        <CompletedTask />
       </div>
     </div>
   );
