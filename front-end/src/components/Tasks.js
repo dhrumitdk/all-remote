@@ -50,7 +50,7 @@ function Tasks() {
   // useEffect hook for fetching data from the database
   useEffect(() => {
     async function fetchData() {
-      const response = await Axios.get("/task-endpoint");
+      const response = await Axios.get("/task-get-endpoint");
       setTaskData(response.data);
 
       return response;
@@ -72,7 +72,7 @@ function Tasks() {
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      Axios.post("/task-endpoint", values).then((res) => {
+      Axios.post("/task-post-endpoint", values).then((res) => {
         window.location.reload();
       });
     },
