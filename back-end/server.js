@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
+import bcrypt from "bcrypt";
 import Data from "./Data.js";
 import userData from "./models/userModel.js";
 import taskData from "./models/taskModel.js";
@@ -57,6 +58,22 @@ app.post("/user-signup-endpoint", (req, res) => {
       res.status(201).send(data);
     }
   });
+});
+
+// sign in endpoints
+app.post("/user-signin-endpoint", async (req, res) => {
+  const { projectName, password } = req.body;
+
+  const user = await userData.findOne({ projectName: projectName });
+  if (!user) {
+    return res.status(400).json({ message: "projectName doesnot match!" });
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).json({ message: "Password doesnot match!" });
+  }
+  res.status(200).json({ message: "User authentication success!" });
+  console.log("User authenticated and logged in!");
 });
 
 // task get and post endpoints
