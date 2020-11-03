@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header, Modal, Input } from "semantic-ui-react";
 import { Plus } from "react-feather";
 import { useFormik } from "formik";
+import Axios from "./Axios";
+import "../styles/Schedules.css";
 
 // setting initial values for formik form
 const initialValues = {
@@ -31,7 +33,20 @@ const validate = (values) => {
 
 // functional component start here
 function Schedules() {
+  const [scheduleData, setScheduleData] = useState([]);
   const [open, setOpen] = useState(false);
+
+  // useEffect hook for fetching data from the database
+  useEffect(() => {
+    async function fetchData() {
+      const response = await Axios.get("/schedule-endpoint");
+      setScheduleData(response.data);
+
+      return response;
+    }
+
+    fetchData();
+  }, []); // gets executed only once
 
   // formik form starts here
   const formik = useFormik({
@@ -40,7 +55,9 @@ function Schedules() {
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      window.location.reload();
+      Axios.post("/schedule-endpoint", values).then((res) => {
+        window.location.reload();
+      });
     },
   });
 
@@ -159,78 +176,19 @@ function Schedules() {
         </div>
       </div>
 
-      {/* schedule cards */}
-      <div style={{ display: "flex", marginTop: "50px", marginLeft: "350px" }}>
-        <div className="schedule-div">
-          <div style={{ backgroundColor: "#f1f1f1" }} className="task-card">
-            <div style={{ display: "flex" }}>
-              <b> Title: </b> &nbsp; Test Meeting
+      {/* card that displays schedules */}
+      <div>
+        {scheduleData.map(({ title, date, url }) => (
+          <div className="schedule__card">
+            <div>
+              <b> {title} </b>
             </div>
-            <div style={{ marginTop: "15px" }}>
-              <b> Date: </b> &nbsp; 03/10/2020
-              <br />
-              <b> url (optional): </b> <br />
-              www.testmeeting.com
+            <div>
+              {date} <br />
+              {url}
             </div>
           </div>
-        </div>
-
-        <div className="schedule-div">
-          <div style={{ backgroundColor: "#f1f1f1" }} className="task-card">
-            <div style={{ display: "flex" }}>
-              <b> Title: </b> &nbsp; Test Meeting
-            </div>
-            <div style={{ marginTop: "15px" }}>
-              <b> Date: </b> &nbsp; 03/10/2020
-              <br />
-              <b> url (optional): </b> <br />
-              www.testmeeting.com
-            </div>
-          </div>
-        </div>
-
-        <div className="schedule-div">
-          <div style={{ backgroundColor: "#f1f1f1" }} className="task-card">
-            <div style={{ display: "flex" }}>
-              <b> Title: </b> &nbsp; Test Meeting
-            </div>
-            <div style={{ marginTop: "15px" }}>
-              <b> Date: </b> &nbsp; 03/10/2020
-              <br />
-              <b> url (optional): </b> <br />
-              www.testmeeting.com
-            </div>
-          </div>
-        </div>
-
-        <div className="schedule-div">
-          <div style={{ backgroundColor: "#f1f1f1" }} className="task-card">
-            <div style={{ display: "flex" }}>
-              <b> Title: </b> &nbsp; Test Meeting
-            </div>
-            <div style={{ marginTop: "15px" }}>
-              <b> Date: </b> &nbsp; 03/10/2020
-              <br />
-              <b> url (optional): </b> <br />
-              www.testmeeting.com
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
-
-      <div style={{ marginLeft: "350px" }} className="schedule-div">
-        <div style={{ backgroundColor: "#f1f1f1" }} className="task-card">
-          <div style={{ display: "flex" }}>
-            <b> Title: </b> &nbsp; Test Meeting
-          </div>
-          <div style={{ marginTop: "15px" }}>
-            <b> Date: </b> &nbsp; 03/10/2020
-            <br />
-            <b> url (optional): </b> <br />
-            www.testmeeting.com
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

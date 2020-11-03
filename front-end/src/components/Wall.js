@@ -3,6 +3,7 @@ import "../styles/Wall.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
+import { Share2 } from "react-feather";
 
 // functional component start here
 function Wall() {
@@ -69,6 +70,7 @@ function Wall() {
             <h2 style={{ marginLeft: "8px", color: "#343434" }}> Wall </h2>
 
             <button className="share-thoughts-btn">
+              <Share2 style={{ height: "15px" }} />
               <Link
                 style={{ color: "white", fontFamily: "Source Sans Pro" }}
                 to="/posts/create"
