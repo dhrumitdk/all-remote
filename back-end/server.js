@@ -64,13 +64,13 @@ app.post("/user-signup-endpoint", (req, res) => {
 
 // sign in endpoints
 app.post("/user-signin-endpoint", async (req, res) => {
-  const { projectName, password } = req.body;
+  const { email, accessCode } = req.body;
 
-  const user = await userData.findOne({ projectName: projectName });
+  const user = await invitationData.findOne({ email: email });
   if (!user) {
     return res.status(400).json({ message: "projectName doesnot match!" });
   }
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(accessCode, user.accessCode);
   if (!isMatch) {
     return res.status(400).json({ message: "Password doesnot match!" });
   }
@@ -238,5 +238,5 @@ app.get("/find-one-endpoint", (req, res) => {
 
 // listen
 app.listen(port, () => {
-  console.log("App has started!");
+  console.log("App has started! Listening at:", port);
 });

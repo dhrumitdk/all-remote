@@ -2,34 +2,35 @@ import React from "react";
 import Axios from "./Axios";
 import "../styles/Login.css";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Input } from "semantic-ui-react";
 
 // setting initial values for formik form
 const initialValues = {
-  projectName: "",
-  password: "",
+  email: "",
+  accessCode: "",
 };
 
 // validation function for formik
 const validate = (values) => {
   let errors = {};
-  /* if (!values.projectName) {
-    errors.projectName = "This field cannot be empty";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.projectName)) {
-    errors.projectName = "Please enter valid projectName";
+  /* if (!values.email) {
+    errors.email = "This field cannot be empty";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Please enter valid email";
   } */
 
-  if (!values.password) {
-    errors.password = "This field cannot be empty";
-  } else if (values.password.length < 6) {
-    errors.password = "Access Code should be atleast 6 characters long";
+  if (!values.accessCode) {
+    errors.accessCode = "This field cannot be empty";
+  } else if (values.accessCode.length < 6) {
+    errors.accessCode = "Access Code should be atleast 6 characters long";
   }
   return errors;
 };
 
 // functional component start here
 function Login() {
+  const history = useHistory();
   // formik form starts here
   const formik = useFormik({
     initialValues,
@@ -38,8 +39,11 @@ function Login() {
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
       Axios.post("/user-signin-endpoint", values).then((res) => {
-        //history.push("/tasks");
-        console.log(res);
+        if (res.status === 200) {
+          history.push("/tasks");
+        } else {
+          alert("Invalid Credentials!");
+        }
       });
     },
   });
@@ -64,34 +68,34 @@ function Login() {
         <div className="form-inner">
           <form onSubmit={formik.handleSubmit}>
             <div>
-              <label className="label"> projectName* </label> <br />
+              <label className="label"> Email* </label> <br />
               <Input
-                name="projectName"
+                name="email"
                 type="text"
                 placeholder="abc@example.com"
                 className="input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.projectName}
+                value={formik.values.email}
               />
-              {formik.touched.projectName && formik.errors.projectName ? (
-                <div className="error-div"> {formik.errors.projectName} </div>
+              {formik.touched.email && formik.errors.email ? (
+                <div className="error-div"> {formik.errors.email} </div>
               ) : null}
             </div>
 
-            <div className="password">
+            <div className="accessCode">
               <label className="label"> Access Code* </label> <br />
               <Input
-                name="password"
+                name="accessCode"
                 type="password"
                 placeholder="Minimum 6 digits integers"
                 className="input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.password}
+                value={formik.values.accessCode}
               />
-              {formik.touched.password && formik.errors.password ? (
-                <div className="error-div"> {formik.errors.password} </div>
+              {formik.touched.accessCode && formik.errors.accessCode ? (
+                <div className="error-div"> {formik.errors.accessCode} </div>
               ) : null}
             </div>
 

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "./Axios";
 import { Plus, Share, Share2 } from "react-feather";
 import { Link } from "react-router-dom";
@@ -8,18 +8,18 @@ import { Header, Input, Modal } from "semantic-ui-react";
 // setting initial values for formik form
 const initialValues = {
   email: "",
-  password: "",
+  accessCode: "",
 };
 
 // validation function for formik
-const valipassword = (values) => {
+const valiaccessCode = (values) => {
   let errors = {};
   if (!values.email) {
     errors.email = "This field cannot be empty";
   }
 
-  if (!values.password) {
-    errors.password = "This field cannot be empty";
+  if (!values.accessCode) {
+    errors.accessCode = "This field cannot be empty";
   }
 
   if (!values.url) {
@@ -32,11 +32,24 @@ const valipassword = (values) => {
 // functional component start here
 function Teams() {
   const [open, setOpen] = useState(false);
+  const [teamData, setTeamData] = useState([]);
+
+  // useEffect hook for fetching data from the database
+  useEffect(() => {
+    async function fetchData() {
+      const response = await Axios.get("/invitation-endpoint");
+      setTeamData(response.data);
+
+      return response;
+    }
+
+    fetchData();
+  }, []); // gets executed only once
 
   // formik form starts here
   const formik = useFormik({
     initialValues,
-    valipassword,
+    valiaccessCode,
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
@@ -117,15 +130,15 @@ function Teams() {
               <div className="next-input-field">
                 <label className="label"> Access Code* </label> <br />
                 <Input
-                  name="password"
+                  name="accessCode"
                   type="password"
                   className="input"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.password}
+                  value={formik.values.accessCode}
                 />
-                {formik.touched.password && formik.errors.password ? (
-                  <div className="error-div"> {formik.errors.password} </div>
+                {formik.touched.accessCode && formik.errors.accessCode ? (
+                  <div className="error-div"> {formik.errors.accessCode} </div>
                 ) : null}
               </div>
 
@@ -143,6 +156,16 @@ function Teams() {
             </form>
           </Modal.Content>
         </Modal>
+      </div>
+
+      <div style={{ marginTop: "160px", padding: "0", marginLeft: "-130px" }}>
+        {teamData.map(({ email }) => (
+          <div>
+            <div style={{ marginTop: "20px" }}>
+              <b> {email} </b>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

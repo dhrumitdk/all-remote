@@ -6,42 +6,35 @@ import { useFormik } from "formik";
 import Axios from "./Axios";
 import "../styles/Schedules.css";
 
-// setting initial values for formik form
-const initialValues = {
-  title: "",
-  date: "",
-  url: "",
-};
-
-// validation function for formik
-const validate = (values) => {
-  let errors = {};
-  if (!values.title) {
-    errors.title = "This field cannot be empty";
-  }
-
-  if (!values.date) {
-    errors.date = "This field cannot be empty";
-  }
-
-  if (!values.url) {
-    errors.url = "This field cannot be empty";
-  }
-
-  return errors;
-};
-
 // functional component start here
 function Schedules() {
   const [scheduleData, setScheduleData] = useState([]);
   const [open, setOpen] = useState(false);
+  const accessCodeData = "testAccessCode";
+
+  // validation function for formik
+  const validate = (values) => {
+    let errors = {};
+    if (!values.title) {
+      errors.title = "This field cannot be empty";
+    }
+
+    if (!values.date) {
+      errors.date = "This field cannot be empty";
+    }
+
+    if (!values.url) {
+      errors.url = "This field cannot be empty";
+    }
+
+    return errors;
+  };
 
   // useEffect hook for fetching data from the database
   useEffect(() => {
     async function fetchData() {
       const response = await Axios.get("/schedule-endpoint");
       setScheduleData(response.data);
-
       return response;
     }
 
@@ -50,7 +43,12 @@ function Schedules() {
 
   // formik form starts here
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      title: "",
+      date: "",
+      url: "",
+      accessCode: accessCodeData,
+    },
     validate,
 
     // onSubmit that passes values to backend api when form gets submitted

@@ -5,12 +5,6 @@ import Axios from "./Axios";
 import "../styles/CreatePosts.css";
 import { useHistory } from "react-router-dom";
 
-// setting initial values for formik form
-const initialValues = {
-  title: "",
-  content: "",
-};
-
 // validation function for formik
 const validate = (values) => {
   let errors = {};
@@ -28,10 +22,15 @@ const validate = (values) => {
 
 function CreatePosts() {
   const history = useHistory();
+  const accessCodeData = "testAccessCode";
 
   // formik form starts here
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      title: "",
+      content: "",
+      accessCode: accessCodeData,
+    },
     validate,
     onSubmit: (values) => {
       Axios.post("/wall-endpoint", values).then((res) => {

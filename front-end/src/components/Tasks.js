@@ -9,14 +9,7 @@ import TaskCard from "./TaskCard";
 import CompletedTask from "./CompletedTask";
 
 // setting initial values for formik form
-const initialValues = {
-  taskName: "",
-  assignee: "",
-  startDate: "",
-  dueDate: "",
-  priority: "",
-  status: "",
-};
+const initialValues = {};
 
 // validation function for formik
 const validate = (values) => {
@@ -47,6 +40,7 @@ const validate = (values) => {
 function Tasks() {
   // creating state for task data
   const [open, setOpen] = useState(false);
+  const accessCodeData = "testAccessCode";
 
   const priorityOptions = [
     { key: 1, text: "Low", value: 1 },
@@ -56,7 +50,15 @@ function Tasks() {
 
   // formik form starts here
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      taskName: "",
+      assignee: "",
+      startDate: "",
+      dueDate: "",
+      priority: "",
+      status: "",
+      accessCode: accessCodeData,
+    },
     validate,
 
     // onSubmit that passes values to backend api when form gets submitted
