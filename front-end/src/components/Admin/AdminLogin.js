@@ -1,15 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import { Input } from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
 
 // setting initial values for formik form
 const initialValues = {
   email: "",
   password: "",
-};
-
-const onSubmit = (values) => {
-  console.log(values);
 };
 
 // validation function for formik
@@ -30,11 +27,21 @@ const validate = (values) => {
 };
 
 function AdminLogin() {
+  const history = useHistory();
   // formik form starts here
   const formik = useFormik({
     initialValues,
     validate,
-    onSubmit,
+    onSubmit: (values) => {
+      if (
+        values.email === "dhrumit.dk@gmail.com" &&
+        values.password === "admin@123"
+      ) {
+        history.push("/admin/dashboard");
+      } else {
+        alert("Oops! Wrong credentials");
+      }
+    },
   });
 
   return (

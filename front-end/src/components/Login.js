@@ -1,24 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Axios from "./Axios";
 import "../styles/Login.css";
 import { useFormik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { Input } from "semantic-ui-react";
-
-// setting initial values for formik form
-const initialValues = {
-  email: "",
-  accessCode: "",
-};
+import { useStateValue } from "../StateProvider";
 
 // validation function for formik
 const validate = (values) => {
   let errors = {};
-  /* if (!values.email) {
+  if (!values.email) {
     errors.email = "This field cannot be empty";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = "Please enter valid email";
-  } */
+  }
 
   if (!values.accessCode) {
     errors.accessCode = "This field cannot be empty";
@@ -31,19 +26,29 @@ const validate = (values) => {
 // functional component start here
 function Login() {
   const history = useHistory();
+
+  const [{ accessCodeState }, dispatch] = useStateValue();
+
   // formik form starts here
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      email: "",
+      accessCode: "",
+    },
     validate,
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      Axios.post("/user-signin-endpoint", values).then((res) => {
+      Axios.post("/api/user-signin", values).then((res) => {
         if (res.status === 200) {
+          dispatch({
+            type: "SET_ACCESSCODE",
+            accessCodeState: values.accessCode,
+          });
+          console.log(res);
+          console.log(accessCodeState);
           history.push("/tasks");
-        } else {
-          alert("Invalid Credentials!");
-        }
+        } else alert("Invalid Credentials!");
       });
     },
   });
@@ -88,7 +93,7 @@ function Login() {
               <Input
                 name="accessCode"
                 type="password"
-                placeholder="Minimum 6 digits integers"
+                placeholder="Minimum 6 characters"
                 className="input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -110,11 +115,6 @@ function Login() {
           </div>
         </div>
       </div>
-
-      {/* footer */}
-      <footer>
-        <pre> Designed & developed by Heet and Dhrumit </pre>
-      </footer>
     </div>
   );
 }

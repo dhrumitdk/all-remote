@@ -1,9 +1,9 @@
+import Axios from "./Axios";
 import { useFormik } from "formik";
 import React from "react";
-import { Input, TextArea } from "semantic-ui-react";
-import Axios from "./Axios";
-import "../styles/CreatePosts.css";
 import { Link, useHistory } from "react-router-dom";
+import { Input } from "semantic-ui-react";
+import { useStateValue } from "../StateProvider";
 
 // validation function for formik
 const validate = (values) => {
@@ -13,28 +13,29 @@ const validate = (values) => {
     errors.title = "This field cannot be empty";
   }
 
-  if (!values.content) {
-    errors.content = "This field cannot be empty";
+  if (!values.date) {
+    errors.date = "This field cannot be empty";
   }
 
   return errors;
 };
 
-function CreatePosts() {
+function CreateSchedules() {
   const history = useHistory();
-  const accessCodeData = "testAccessCode";
+  const [{ accessCodeState }] = useStateValue();
 
   // formik form starts here
   const formik = useFormik({
     initialValues: {
       title: "",
-      content: "",
-      accessCode: accessCodeData,
+      date: "",
+      url: "",
+      accessCode: accessCodeState,
     },
     validate,
     onSubmit: (values) => {
-      Axios.post("/api/walls", values).then((res) => {
-        history.push("/wall");
+      Axios.post("/api/schedules", values).then((res) => {
+        history.push("/schedules");
       });
     },
   });
@@ -54,17 +55,17 @@ function CreatePosts() {
             color: "#343434",
           }}
         >
-          Create Post
+          Create Schedule
         </p>
 
         <form onSubmit={formik.handleSubmit}>
-          {/* div for Post Title */}
+          {/* div for schedule Title */}
           <div>
-            <label className="label"> Post Title* </label> <br />
+            <label className="label"> Title* </label> <br />
             <Input
               name="title"
               type="text"
-              placeholder="Demo Title"
+              placeholder="Test Schedule"
               className="input"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -76,30 +77,40 @@ function CreatePosts() {
             ) : null}
           </div>
 
-          {/* div for Content of the post */}
+          {/* div for date of the schedule */}
           <div style={{ marginTop: "10px" }}>
-            <label className="label"> Content* </label> <br />
-            <TextArea
-              name="content"
-              type="text"
-              placeholder="Share your thoughts here..."
-              className="textarea"
+            <label className="label"> Date* </label> <br />
+            <Input
+              name="date"
+              type="date"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.content}
+              value={formik.values.date}
             />
             {/* displays validations */}
-            {formik.touched.content && formik.errors.content ? (
-              <div className="error-div"> {formik.errors.content} </div>
+            {formik.touched.date && formik.errors.date ? (
+              <div className="error-div"> {formik.errors.date} </div>
             ) : null}
           </div>
 
-          {/* div for Publish button */}
+          {/* div for url of the schedule */}
+          <div style={{ marginTop: "10px" }}>
+            <label className="label"> URL (Optional) </label> <br />
+            <Input
+              name="url"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.url}
+            />
+          </div>
+
+          {/* div for create button */}
           <div
             style={{ marginTop: "30px", display: "flex", alignItems: "center" }}
           >
-            <button className="share-thoughts-btn">Publish</button>
-            <Link style={{ marginLeft: "20px" }} to="/wall">
+            <button className="share-thoughts-btn">Create</button>
+            <Link style={{ marginLeft: "20px" }} to="/schedules">
               Cancel
             </Link>
           </div>
@@ -109,4 +120,4 @@ function CreatePosts() {
   );
 }
 
-export default CreatePosts;
+export default CreateSchedules;

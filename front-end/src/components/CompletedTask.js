@@ -9,7 +9,7 @@ function CompletedTask() {
   // useEffect hook for fetching data from the database
   useEffect(() => {
     async function fetchData() {
-      const response = await Axios.get("/task-endpoint");
+      const response = await Axios.get("/api/tasks");
       setTaskData(response.data);
 
       return response;
@@ -21,25 +21,34 @@ function CompletedTask() {
     <div>
       {/* card that displays tasks */}
       <div>
-        {taskData.map(({ taskName, assignee, dueDate, priority }) => (
-          <div className="completed__card">
-            <div style={{ display: "flex" }}>
-              <b> {taskName} </b>
-            </div>
-            <div style={{ marginTop: "15px" }}>
-              {assignee} <br />
-              {dueDate}
-            </div>
-            <div style={{ marginTop: "100px" }}>
-              {/* conditional rendering based on priority */}
-              {priority === "Low" ? (
-                <div className="lowPriority"> {priority} </div>
-              ) : priority === "Medium" ? (
-                <div className="mediumPriority"> {priority} </div>
-              ) : (
-                <div className="highPriority"> {priority} </div>
-              )}
-            </div>
+        {taskData.map(({ taskName, assignee, dueDate, priority, status }) => (
+          <div>
+            {status == "completed" ? (
+              <div className="completed__card">
+                <div>
+                  {" "}
+                  <div style={{ display: "flex" }}>
+                    <b> {taskName} </b>
+                  </div>
+                  <div style={{ marginTop: "15px" }}>
+                    {assignee} <br />
+                    {dueDate}
+                  </div>
+                  <div style={{ marginTop: "100px" }}>
+                    {/* conditional rendering based on priority */}
+                    {priority === "Low" ? (
+                      <div className="lowPriority"> {priority} </div>
+                    ) : priority === "Medium" ? (
+                      <div className="mediumPriority"> {priority} </div>
+                    ) : (
+                      <div className="highPriority"> {priority} </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div> </div>
+            )}
           </div>
         ))}
       </div>

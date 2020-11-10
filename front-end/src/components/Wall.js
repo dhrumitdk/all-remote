@@ -13,7 +13,7 @@ function Wall() {
   // useEffect hook for fetching data from the database
   useEffect(() => {
     async function fetchData() {
-      const response = await Axios.get("/wall-endpoint");
+      const response = await Axios.get("/api/walls");
       setWallData(response.data);
 
       return response;
@@ -67,7 +67,7 @@ function Wall() {
         {/* right side menu div */}
         <div className="right-portion">
           <div className="top">
-            <h2 style={{ marginLeft: "8px", color: "#343434" }}> Wall </h2>
+            <h2 style={{ marginLeft: "8px", color: "#343434" }}> Your Wall </h2>
 
             <button className="share-thoughts-btn">
               <Share2 style={{ height: "15px" }} />

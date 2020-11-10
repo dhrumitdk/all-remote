@@ -23,6 +23,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+  padding-right: 20px;
   background-color: #f1f1f1;
   border-radius: 5px;
 }
@@ -30,15 +31,16 @@
 .edit-icon {
   width: 16px;
   height: 16px;
-  margin-top: 5px;
-  margin-left: 30px;
+  margin-top: 2px;
   color: #004dff;
+  cursor: pointer;
 }
 
 .delete-icon {
   width: 16px;
   height: 16px;
-  margin-top: 5px;
+  margin-top: 2px;
   margin-left: 10px;
   color: red;
+  cursor: pointer;
 }

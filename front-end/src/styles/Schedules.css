@@ -1,16 +1,11 @@
 .schedule-div {
-  display: flex;
-  margin-left: 20px;
-  width: 730px;
-  flex-flow: wrap;
+  margin-top: 20px;
+  margin-left: 390px;
 }
 
-.schedule__card {
-  display: grid;
-  width: 250px;
-  height: 150px;
-  margin-top: 30px;
-  margin-left: 390px;
+.schedule-card {
+  width: 700px;
+  height: 100px;
   padding-left: 20px;
   padding-top: 12px;
   padding-bottom: 12px;

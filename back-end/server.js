@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
-import bcrypt from "bcrypt";
 import Data from "./Data.js";
 import userData from "./models/userModel.js";
 import taskData from "./models/taskModel.js";
@@ -40,7 +39,7 @@ app.get("/data-endpoint", (req, res) => {
 });
 
 // sign up get and post endpoints
-app.get("/user-signup-endpoint", (req, res) => {
+app.get("/api/user-signup", (req, res) => {
   userData.find((err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -50,7 +49,7 @@ app.get("/user-signup-endpoint", (req, res) => {
   });
 });
 
-app.post("/user-signup-endpoint", (req, res) => {
+app.post("/api/user-signup", (req, res) => {
   const dbUsers = req.body;
 
   userData.create(dbUsers, (err, data) => {
@@ -63,33 +62,56 @@ app.post("/user-signup-endpoint", (req, res) => {
 });
 
 // sign in endpoints
-app.post("/user-signin-endpoint", async (req, res) => {
+app.post("/api/user-signin", async (req, res) => {
   const { email, accessCode } = req.body;
 
   const user = await invitationData.findOne({ email: email });
+
   if (!user) {
-    return res.status(400).json({ message: "projectName doesnot match!" });
+    return res.status(400).json({ message: "Email doesnot match!" });
   }
-  const isMatch = await bcrypt.compare(accessCode, user.accessCode);
-  if (!isMatch) {
-    return res.status(400).json({ message: "Password doesnot match!" });
-  }
-  res.status(200).json({ message: "User authentication success!" });
-  console.log("User authenticated and logged in!");
+
+  if (accessCode === user.accessCode) {
+    console.log("User authenticated and logged in!");
+    return res
+      .status(200)
+      .json({ message: "User authenticated and logged in!" });
+  } else res.status(400).json({ message: "User not authenticated!" });
 });
 
 // task get and post endpoints
-app.get("/task-endpoint", (req, res) => {
-  taskData.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+app.get("/api/tasks", (req, res) => {
+  taskData
+    .find((err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(data);
+      }
+    })
+    .sort({ _id: -1 });
 });
 
-app.post("/task-endpoint", (req, res) => {
+app.post("/api/completed-tasks/:id", (req, res) => {
+  const completedTask = req.params.id;
+
+  taskData
+    .findByIdAndUpdate(
+      { _id: completedTask },
+      { status: "completed" },
+      (completedTask,
+      (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(201).send(data);
+        }
+      })
+    )
+    .sort({ _id: -1 });
+});
+
+app.post("/api/tasks", (req, res) => {
   const dbTasks = req.body;
 
   taskData.create(dbTasks, (err, data) => {
@@ -124,17 +146,19 @@ app.post("/task-endpoint", (req, res) => {
 });
 
 // schedules get and post endpoints
-app.get("/schedule-endpoint", (req, res) => {
-  scheduleData.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+app.get("/api/schedules", async (req, res) => {
+  scheduleData
+    .find((err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(data);
+      }
+    })
+    .sort({ _id: -1 });
 });
 
-app.post("/schedule-endpoint", (req, res) => {
+app.post("/api/schedules", (req, res) => {
   const dbTasks = req.body;
 
   scheduleData.create(dbTasks, (err, data) => {
@@ -147,17 +171,19 @@ app.post("/schedule-endpoint", (req, res) => {
 });
 
 // invitation get and post endpoints
-app.get("/invitation-endpoint", (req, res) => {
-  invitationData.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+app.get("/api/invitations", (req, res) => {
+  invitationData
+    .find((err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(data);
+      }
+    })
+    .sort({ _id: -1 });
 });
 
-app.post("/invitation-endpoint", (req, res) => {
+app.post("/api/invitations", (req, res) => {
   const dbTasks = req.body;
 
   invitationData.create(dbTasks, (err, data) => {
@@ -192,17 +218,19 @@ app.post("/invitation-endpoint", (req, res) => {
 });
 
 // wall posts get and post endpoints
-app.get("/wall-endpoint", (req, res) => {
-  wallData.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+app.get("/api/walls", (req, res) => {
+  wallData
+    .find((err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(data);
+      }
+    })
+    .sort({ _id: -1 });
 });
 
-app.post("/wall-endpoint", (req, res) => {
+app.post("/api/walls", (req, res) => {
   const dbTasks = req.body;
 
   wallData.create(dbTasks, (err, data) => {

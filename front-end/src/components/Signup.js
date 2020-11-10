@@ -5,18 +5,19 @@ import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { Input } from "semantic-ui-react";
-
-// setting initial values for formik form
-const initialValues = {
-  projectName: "",
-  password: "",
-};
+import { useStateValue } from "../StateProvider";
 
 // validation function for formik
 const validate = (values) => {
   let errors = {};
   if (!values.projectName) {
     errors.projectName = "This field cannot be empty";
+  }
+
+  if (!values.email) {
+    errors.email = "This field cannot be empty";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Please enter valid email";
   }
 
   if (!values.password) {
@@ -30,15 +31,25 @@ const validate = (values) => {
 // functional component start here
 function Signup() {
   const history = useHistory();
+  const [{ accessCodeState }, dispatch] = useStateValue();
 
   // formik form starts here
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      projectName: "",
+      email: "",
+      password: "",
+    },
     validate,
 
     // onSubmit that passes values to backend api when form gets submitted
     onSubmit: (values) => {
-      Axios.post("/user-signup-endpoint", values).then((res) => {
+      Axios.post("/api/user-signup", values).then((res) => {
+        dispatch({
+          type: "SET_ACCESSCODE",
+          accessCodeState: values.password,
+        });
+        console.log(accessCodeState);
         history.push("/tasks");
       });
     },
@@ -68,7 +79,7 @@ function Signup() {
               <Input
                 name="projectName"
                 type="text"
-                placeholder="Example: Demo Project"
+                placeholder="Demo Project"
                 className="input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -80,11 +91,27 @@ function Signup() {
             </div>
 
             <div className="accesscode-div">
+              <label className="label"> Email* </label> <br />
+              <Input
+                name="email"
+                type="text"
+                placeholder="abc@gmail.com"
+                className="input"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className="error-div"> {formik.errors.email} </div>
+              ) : null}
+            </div>
+
+            <div className="accesscode-div">
               <label className="label"> Access Code* </label> <br />
               <Input
                 name="password"
                 type="password"
-                placeholder="Minimum 6 digits integers"
+                placeholder="Minimum 6 characters"
                 className="input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -104,11 +131,6 @@ function Signup() {
           </div>
         </div>
       </div>
-
-      {/* footer */}
-      <footer>
-        <pre> Designed & developed by Heet and Dhrumit </pre>
-      </footer>
     </div>
   );
 }
