@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Axios from "./Axios";
 import "../styles/Login.css";
 import { useFormik } from "formik";
@@ -88,7 +88,7 @@ function Login() {
               ) : null}
             </div>
 
-            <div className="accessCode">
+            <div className="accesscode-div">
               <label className="label"> Access Code* </label> <br />
               <Input
                 name="accessCode"

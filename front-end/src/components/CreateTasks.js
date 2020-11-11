@@ -15,10 +15,6 @@ const validate = (values) => {
 
   if (!values.assignee) {
     errors.assignee = "This field cannot be empty";
-  } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.assignee)
-  ) {
-    errors.assignee = "Please enter valid email";
   }
 
   if (!values.startDate) {

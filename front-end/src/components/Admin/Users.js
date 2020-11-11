@@ -4,13 +4,13 @@ import { Trash2 } from "react-feather";
 import Axios from "../Axios";
 import { Link } from "react-router-dom";
 
-function Dashboard() {
-  const [projectData, setProjectData] = useState([]);
+function Users() {
+  const [usersData, setUsersData] = useState([]);
   // useEffect hook for fetching data from the database
   useEffect(() => {
     async function fetchData() {
-      const response = await Axios.get("/api/user-signup");
-      setProjectData(response.data);
+      const response = await Axios.get("/api/invitations");
+      setUsersData(response.data);
 
       return response;
     }
@@ -19,7 +19,7 @@ function Dashboard() {
   }, []); // gets executed only once
 
   const deleteProject = (id) => {
-    Axios.post(`/api/delete-project/${id}`).then((res) => {
+    Axios.post(`/api/user/${id}`).then((res) => {
       window.location.reload();
     });
   };
@@ -27,6 +27,7 @@ function Dashboard() {
   return (
     <div>
       {/* header */}
+
       <h1 className="header-h1"> allRemote </h1>
       <Link style={{ marginLeft: "20px", fontSize: "14px" }} to="/admin/login">
         {" "}
@@ -34,19 +35,20 @@ function Dashboard() {
       </Link>
 
       <div className="projects-div">
-        <p style={{ fontSize: "34px", color: "#343434" }}> Projects </p>
-        <Link style={{ fontSize: "16px" }} to="/admin/users">
+        <p style={{ fontSize: "34px", color: "#343434" }}> Users </p>
+        <Link style={{ fontSize: "16px" }} to="/admin/dashboard">
           {" "}
-          Users{" "}
+          Projects{" "}
         </Link>
       </div>
 
       {/* Project Names */}
       <div className="project-div">
-        {projectData.map(({ _id, projectName }) => (
+        {usersData.map(({ _id, name, email, accessCode }) => (
           <div className="project-name-div">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h4> {projectName} </h4>
+              <h4> {name} </h4> {email}
+              <div>{accessCode}</div>
               <div>
                 <Trash2
                   className="delete-icon"
@@ -63,4 +65,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Users;

@@ -22,6 +22,7 @@ function TaskCard() {
   }, []); // gets executed only once
 
   const completedTask = (id) => {
+    alert("Marked as completed");
     Axios.post(`/api/completed-tasks/${id}`);
   };
 
@@ -31,9 +32,9 @@ function TaskCard() {
       <div>
         {taskData.map(
           ({ _id, taskName, assignee, dueDate, priority, accessCode }) => (
-            <div className="task__card">
+            <div>
               {accessCode === accessCodeState ? (
-                <div>
+                <div className="task__card">
                   <div
                     style={{
                       display: "flex",
@@ -54,7 +55,7 @@ function TaskCard() {
                     {assignee} <br />
                     {dueDate}
                   </div>
-                  <div style={{ marginTop: "100px" }}>
+                  <div style={{ marginTop: "10px" }}>
                     {/* conditional rendering based on priority */}
                     {priority === "Low" ? (
                       <div className="lowPriority"> {priority} </div>

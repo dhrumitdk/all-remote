@@ -48,6 +48,11 @@ function Schedules() {
                 Wall
               </Link>
             </li>
+            <li className="ul-menu-li">
+              <Link className="menu-links" to="/login">
+                Logout
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

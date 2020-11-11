@@ -1,9 +1,8 @@
 .task__card {
   display: grid;
-  width: 430px;
-  height: 250px;
+  width: 580px;
+  height: 140px;
   margin-top: 20px;
-  margin-left: 360px;
   padding-left: 20px;
   padding-top: 12px;
   padding-bottom: 12px;

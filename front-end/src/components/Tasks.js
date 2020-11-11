@@ -1,18 +1,11 @@
 import React from "react";
 import "../styles/Tasks.css";
 import { Link } from "react-router-dom";
-import { Check, Plus } from "react-feather";
+import { Plus } from "react-feather";
 import TaskCard from "./TaskCard";
-import CompletedTask from "./CompletedTask";
 
 // functional component start here
 function Tasks() {
-  const priorityOptions = [
-    { key: 1, text: "Low", value: 1 },
-    { key: 2, text: "Medium", value: 2 },
-    { key: 3, text: "High", value: 3 },
-  ];
-
   return (
     <div>
       <div style={{ display: "flex" }}>
@@ -38,6 +31,11 @@ function Tasks() {
                 Wall
               </Link>
             </li>
+            <li className="ul-menu-li">
+              <Link className="menu-links" to="/login">
+                Logout
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -56,28 +54,19 @@ function Tasks() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "left",
-          paddingBottom: "30px",
-        }}
-      >
-        {/* ongoing tasks */}
-        <h5 style={{ marginTop: "50px", marginLeft: "390px" }}>
-          {" "}
-          Ongoing Tasks{" "}
-        </h5>
+      <div style={{ marginLeft: "390px", marginTop: "20px" }}>
+        <Link to="/tasks/completed" style={{ fontSize: "16px" }}>
+          Completed Tasks
+        </Link>
+      </div>
 
-        <h5 style={{ marginTop: "50px", marginLeft: "420px" }}>
-          {" "}
-          Completed Tasks{" "}
-        </h5>
+      <div>
+        {/* all tasks */}
+        <h5 style={{ marginTop: "50px", marginLeft: "390px" }}>All Tasks</h5>
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {/* card that displays tasks */}
         <TaskCard />
-        <CompletedTask />
       </div>
     </div>
   );

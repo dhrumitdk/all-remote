@@ -1,4 +1,3 @@
-import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import Axios from "./Axios";
 import { MapPin, Share } from "react-feather";
@@ -46,6 +45,11 @@ function Teams() {
           <li className="ul-menu-li">
             <Link to="/wall" className="menu-links">
               Wall
+            </Link>
+          </li>
+          <li className="ul-menu-li">
+            <Link className="menu-links" to="/login">
+              Logout
             </Link>
           </li>
         </ul>

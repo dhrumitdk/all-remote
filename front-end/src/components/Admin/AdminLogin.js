@@ -77,7 +77,7 @@ function AdminLogin() {
               ) : null}
             </div>
 
-            <div className="password">
+            <div className="accesscode-div">
               <label className="label"> Admin Password* </label> <br />
               <Input
                 name="password"

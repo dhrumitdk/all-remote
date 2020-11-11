@@ -61,6 +61,45 @@ app.post("/api/user-signup", (req, res) => {
   });
 });
 
+app.post("/api/delete-project/:id", (req, res) => {
+  const projectData = req.params.id;
+
+  userData
+    .findByIdAndDelete(
+      { _id: projectData },
+      (projectData,
+      (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(201).send(data);
+          console.log("Project Deleted!");
+        }
+      })
+    )
+    .sort({ _id: -1 });
+});
+
+app.post("/api/user/:id", (req, res) => {
+  const usersData = req.params.id;
+  console.log(usersData);
+
+  invitationData
+    .findByIdAndDelete(
+      { _id: usersData },
+      (usersData,
+      (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(201).send(data);
+          console.log("User Deleted!");
+        }
+      })
+    )
+    .sort({ _id: -1 });
+});
+
 // sign in endpoints
 app.post("/api/user-signin", async (req, res) => {
   const { email, accessCode } = req.body;
